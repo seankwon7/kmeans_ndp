@@ -86,9 +86,13 @@ kmeansPoint(float  *features,			/* in: [npoints*nfeatures] */
 			for (j=0; j < nfeatures; j++)
 			{					
 				int addr = point_id + j*npoints;					/* appropriate index of data point */
-				float diff = (tex1Dfetch(t_features,addr) -
-							  c_clusters[cluster_base_index + j]);	/* distance between a data point to cluster centers */
-				ans += diff*diff;									/* sum of squares */
+				// float diff = (tex1Dfetch(t_features,addr) -
+				// 			  c_clusters[cluster_base_index + j]);	/* distance between a data point to cluster centers */
+				// ans += diff*diff;									/* sum of squares */
+
+				float feature_addr = features + addr;
+				float c_cluster_addr = c_clusters + sizeof(float)*(cluster_base_index + j);
+				
 			}
 			dist = ans;		
 
